@@ -5,6 +5,7 @@ import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import { PortisConnector } from '@web3-react/portis-connector'
 import getLibrary from '../utils/getLibrary'
+import { SupportedChainId } from '../constants/chains'
 
 import { FortmaticConnector } from './Fortmatic'
 import { NetworkConnector } from './NetworkConnector'
@@ -20,16 +21,24 @@ if (typeof INFURA_KEY === 'undefined') {
 }
 
 const NETWORK_URLS: {
-  [chainId in ChainId]: string
+  [chainId: number]: string
 } = {
   [ChainId.MAINNET]: `https://mainnet.infura.io/v3/${INFURA_KEY}`,
   [ChainId.RINKEBY]: `https://rinkeby.infura.io/v3/${INFURA_KEY}`,
   [ChainId.ROPSTEN]: `https://ropsten.infura.io/v3/${INFURA_KEY}`,
   [ChainId.GÖRLI]: `https://goerli.infura.io/v3/${INFURA_KEY}`,
   [ChainId.KOVAN]: `https://kovan.infura.io/v3/${INFURA_KEY}`,
+  [SupportedChainId.BSC_TESTNET]: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
 }
 
-const SUPPORTED_CHAIN_IDS = [ChainId.MAINNET, ChainId.RINKEBY, ChainId.ROPSTEN, ChainId.KOVAN, ChainId.GÖRLI]
+const SUPPORTED_CHAIN_IDS = [
+  ChainId.MAINNET,
+  ChainId.RINKEBY,
+  ChainId.ROPSTEN,
+  ChainId.KOVAN,
+  ChainId.GÖRLI,
+  SupportedChainId.BSC_TESTNET,
+]
 
 export const network = new NetworkConnector({
   urls: NETWORK_URLS,

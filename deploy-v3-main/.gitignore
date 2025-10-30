@@ -73,6 +73,11 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+.env.bsc-testnet
+.env.bsc-mainnet
+
+# Deployment state files
+state-*.json
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache

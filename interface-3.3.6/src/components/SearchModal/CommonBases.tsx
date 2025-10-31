@@ -56,7 +56,7 @@ export default function CommonBases({
             ETH
           </Text>
         </BaseWrapper>
-        {(typeof chainId === 'number' ? SUGGESTED_BASES[chainId] ?? [] : []).map((token: Token) => {
+        {(typeof chainId === 'number' ? (SUGGESTED_BASES as any)[chainId] ?? [] : []).map((token: Token) => {
           const selected = selectedCurrency?.isToken && selectedCurrency.address === token.address
           return (
             <BaseWrapper onClick={() => !selected && onSelect(token)} disable={selected} key={token.address}>

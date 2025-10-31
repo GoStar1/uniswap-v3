@@ -1,6 +1,24 @@
 // a list of tokens by chain
 import { ChainId, Token, WETH9 } from '@uniswap/sdk-core'
-import { AMPL, DAI, FEI, FRAX, FXS, MIR, renBTC, TRIBE, UMA, UNI, USDC, USDT, UST, WBTC } from './tokens'
+import {
+  AMPL,
+  DAI,
+  FEI,
+  FRAX,
+  FXS,
+  MIR,
+  renBTC,
+  TRIBE,
+  UMA,
+  UNI,
+  USDC,
+  USDT,
+  UST,
+  WBTC,
+  WBNB,
+  AUDIO,
+  BREW,
+} from './tokens'
 
 type ChainTokenList = {
   readonly [chainId in ChainId]: Token[]
@@ -31,11 +49,13 @@ const WETH_ONLY: ChainTokenList = {
   [ChainId.RINKEBY]: [WETH9[ChainId.RINKEBY]],
   [ChainId.GÖRLI]: [WETH9[ChainId.GÖRLI]],
   [ChainId.KOVAN]: [WETH9[ChainId.KOVAN]],
+  [97 as any]: [WBNB], // BSC Testnet
 }
 // used to construct intermediary pairs for trading
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   ...WETH_ONLY,
   [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT, WBTC],
+  [97 as any]: [...(WETH_ONLY as any)[97], AUDIO, BREW], // BSC Testnet
 }
 export const ADDITIONAL_BASES: { [chainId in ChainId]?: { [tokenAddress: string]: Token[] } } = {
   [ChainId.MAINNET]: {
@@ -63,11 +83,13 @@ export const CUSTOM_BASES: { [chainId in ChainId]?: { [tokenAddress: string]: To
 // used for display in the default list when adding liquidity
 export const SUGGESTED_BASES: Partial<ChainTokenList> = {
   [ChainId.MAINNET]: [DAI, USDC, USDT, WBTC],
+  [97 as any]: [AUDIO, BREW], // BSC Testnet
 }
 // used to construct the list of all pairs we consider by default in the frontend
 export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
   ...WETH_ONLY,
   [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT, WBTC],
+  [97 as any]: [...(WETH_ONLY as any)[97], AUDIO, BREW], // BSC Testnet
 }
 export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } = {
   [ChainId.MAINNET]: [

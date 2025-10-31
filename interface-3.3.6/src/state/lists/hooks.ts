@@ -5,6 +5,7 @@ import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import sortByListPriority from 'utils/listSort'
 import UNSUPPORTED_TOKEN_LIST from '../../constants/tokenLists/uniswap-v2-unsupported.tokenlist.json'
+import BSC_TESTNET_LIST from '../../constants/tokenLists/bsc-testnet.tokenlist.json'
 import { AppState } from '../index'
 import { UNSUPPORTED_LIST_URLS } from './../../constants/lists'
 import { WrappedTokenInfo } from './wrappedTokenInfo'
@@ -22,6 +23,7 @@ const EMPTY_LIST: TokenAddressMap = {
   [ChainId.ROPSTEN]: {},
   [ChainId.GÖRLI]: {},
   [ChainId.MAINNET]: {},
+  [97]: {}, // BSC Testnet
 }
 
 const listCache: WeakMap<TokenList, TokenAddressMap> | null =
@@ -56,6 +58,7 @@ export function listToTokenMap(list: TokenList): TokenAddressMap {
 }
 
 const TRANSFORMED_DEFAULT_TOKEN_LIST = listToTokenMap(DEFAULT_TOKEN_LIST)
+const TRANSFORMED_BSC_TESTNET_LIST = listToTokenMap(BSC_TESTNET_LIST)
 
 export function useAllLists(): AppState['lists']['byUrl'] {
   return useSelector<AppState, AppState['lists']['byUrl']>((state) => state.lists.byUrl)
@@ -68,6 +71,7 @@ function combineMaps(map1: TokenAddressMap, map2: TokenAddressMap): TokenAddress
     [ChainId.ROPSTEN]: { ...map1[ChainId.ROPSTEN], ...map2[ChainId.ROPSTEN] },
     [ChainId.KOVAN]: { ...map1[ChainId.KOVAN], ...map2[ChainId.KOVAN] },
     [ChainId.GÖRLI]: { ...map1[ChainId.GÖRLI], ...map2[ChainId.GÖRLI] },
+    [97]: { ...map1[97], ...map2[97] }, // BSC Testnet
   }
 }
 
@@ -112,7 +116,8 @@ export function useInactiveListUrls(): string[] {
 export function useCombinedActiveList(): TokenAddressMap {
   const activeListUrls = useActiveListUrls()
   const activeTokens = useCombinedTokenMapFromUrls(activeListUrls)
-  return combineMaps(activeTokens, TRANSFORMED_DEFAULT_TOKEN_LIST)
+  const withDefaults = combineMaps(activeTokens, TRANSFORMED_DEFAULT_TOKEN_LIST)
+  return combineMaps(withDefaults, TRANSFORMED_BSC_TESTNET_LIST)
 }
 
 // list of tokens not supported on interface, used to show warnings and prevent swaps and adds

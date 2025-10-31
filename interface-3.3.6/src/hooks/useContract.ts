@@ -7,7 +7,8 @@ import { abi as MERKLE_DISTRIBUTOR_ABI } from '@uniswap/merkle-distributor/build
 import { abi as IUniswapV2PairABI } from '@uniswap/v2-core/build/IUniswapV2Pair.json'
 import { abi as V3FactoryABI } from '@uniswap/v3-core/artifacts/contracts/UniswapV3Factory.sol/UniswapV3Factory.json'
 import { abi as V3PoolABI } from '@uniswap/v3-core/artifacts/contracts/UniswapV3Pool.sol/UniswapV3Pool.json'
-import { abi as QuoterABI } from '@uniswap/v3-periphery/artifacts/contracts/lens/Quoter.sol/Quoter.json'
+// ✅ 修复: 使用 QuoterV2 ABI 而不是 QuoterV1
+import QuoterV2ABI from 'abis/QuoterV2.json'
 import { abi as V2MigratorABI } from '@uniswap/v3-periphery/artifacts/contracts/V3Migrator.sol/V3Migrator.json'
 import { abi as IUniswapV2Router02ABI } from '@uniswap/v2-periphery/build/IUniswapV2Router02.json'
 
@@ -37,11 +38,13 @@ import {
 } from 'constants/addresses'
 import { abi as NFTPositionManagerABI } from '@uniswap/v3-periphery/artifacts/contracts/NonfungiblePositionManager.sol/NonfungiblePositionManager.json'
 import { useMemo } from 'react'
-import { Quoter, UniswapV3Factory, UniswapV3Pool } from 'types/v3'
+import { UniswapV3Factory, UniswapV3Pool } from 'types/v3'
 import { NonfungiblePositionManager } from 'types/v3/NonfungiblePositionManager'
 import { V3Migrator } from 'types/v3/V3Migrator'
 import { getContract } from 'utils'
 import { ArgentWalletDetector, EnsPublicResolver, EnsRegistrar, Erc20, Multicall2, Weth } from '../abis/types'
+// ✅ 导入 QuoterV2 类型
+import { QuoterV2 } from '../abis/types/QuoterV2'
 import { UNI } from '../constants/tokens'
 import { useActiveWeb3React } from './web3'
 
@@ -151,5 +154,6 @@ export function useV3Pool(address: string | undefined) {
 }
 
 export function useV3Quoter() {
-  return useContract<Quoter>(QUOTER_ADDRESSES, QuoterABI)
+  // ✅ 修复: 使用 QuoterV2 ABI 和类型
+  return useContract<QuoterV2>(QUOTER_ADDRESSES, QuoterV2ABI.abi)
 }

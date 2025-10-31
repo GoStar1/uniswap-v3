@@ -1,0 +1,30 @@
+{
+  "name": "BSC Testnet Tokens",
+  "timestamp": "2025-10-30T00:00:00.000Z",
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "tags": {},
+  "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png",
+  "keywords": ["bsc", "testnet", "default"],
+  "tokens": [
+    {
+      "name": "AudioCoin",
+      "address": "0xe9402c6851719496f64F69eF8B8Cb82099d3Abca",
+      "symbol": "AUDIO",
+      "decimals": 18,
+      "chainId": 97,
+      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/0xe9402c6851719496f64F69eF8B8Cb82099d3Abca/logo.png"
+    },
+    {
+      "name": "BrewCoin",
+      "address": "0x6edBb19E0e156aF6b8334bc1cD7D0eA878B8eC9A",
+      "symbol": "BREW",
+      "decimals": 18,
+      "chainId": 97,
+      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/0x6edBb19E0e156aF6b8334bc1cD7D0eA878B8eC9A/logo.png"
+    }
+  ]
+}

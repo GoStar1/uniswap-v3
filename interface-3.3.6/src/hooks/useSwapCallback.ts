@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Router, Trade as V2Trade } from '@uniswap/v2-sdk'
-import { SwapRouter, Trade as V3Trade } from '@uniswap/v3-sdk'
+import { Trade as V3Trade } from '@uniswap/v3-sdk'
 import { ChainId, Currency, Percent, TradeType } from '@uniswap/sdk-core'
 import { useMemo } from 'react'
 import { SWAP_ROUTER_ADDRESSES } from '../constants/addresses'
@@ -15,6 +15,8 @@ import { SignatureData } from './useERC20Permit'
 import useTransactionDeadline from './useTransactionDeadline'
 import useENS from './useENS'
 import { Version } from './useToggledVersion'
+// ✅ Import custom SwapRouter02 helper (without deadline)
+import { swapRouter02CallParameters } from '../utils/swapRouter02'
 
 export enum SwapCallbackState {
   INVALID,
@@ -97,30 +99,13 @@ function useSwapCallArguments(
       const swapRouterAddress = SWAP_ROUTER_ADDRESSES[chainId as ChainId]
       if (!swapRouterAddress) return []
 
-      const { value, calldata } = SwapRouter.swapCallParameters(trade, {
+      // ✅ 修复: Use custom SwapRouter02 helper without deadline parameter
+      // SwapRouter02 does NOT have deadline in exactInputSingle parameters!
+      const { value, calldata } = swapRouter02CallParameters(trade, {
         recipient,
         slippageTolerance: allowedSlippage,
-        deadline: deadline.toString(),
-        ...(signatureData
-          ? {
-              inputTokenPermit:
-                'allowed' in signatureData
-                  ? {
-                      expiry: signatureData.deadline,
-                      nonce: signatureData.nonce,
-                      s: signatureData.s,
-                      r: signatureData.r,
-                      v: signatureData.v as any,
-                    }
-                  : {
-                      deadline: signatureData.deadline,
-                      amount: signatureData.amount,
-                      s: signatureData.s,
-                      r: signatureData.r,
-                      v: signatureData.v as any,
-                    },
-            }
-          : {}),
+        // Note: SignatureData not supported in this simplified version
+        // The SDK's old SwapRouter helper included deadline, but SwapRouter02 doesn't use it
       })
 
       return [
@@ -131,7 +116,7 @@ function useSwapCallArguments(
         },
       ]
     }
-  }, [account, allowedSlippage, chainId, deadline, library, recipient, routerContract, signatureData, trade])
+  }, [account, allowedSlippage, chainId, deadline, library, recipient, routerContract, trade])
 }
 
 /**

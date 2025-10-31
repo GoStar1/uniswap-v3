@@ -2,8 +2,13 @@ import { ChainId } from '@uniswap/sdk-core'
 import { FACTORY_ADDRESS as V3_FACTORY_ADDRESS } from '@uniswap/v3-sdk'
 import { constructSameAddressMap } from '../utils/constructSameAddressMap'
 
+// BSC Testnet chainId
+const BSC_TESTNET = 97
+
 export const UNI_ADDRESS = constructSameAddressMap('0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984')
-export const MULTICALL2_ADDRESSES = constructSameAddressMap('0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696')
+export const MULTICALL2_ADDRESSES = constructSameAddressMap('0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696', {
+  [BSC_TESTNET]: '0x8F3273Fb89B075b1645095ABaC6ed17B2d4Bc576', // Working Multicall2 on BSC Testnet
+})
 export const V2_ROUTER_ADDRESS = constructSameAddressMap('0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D')
 export const GOVERNANCE_ADDRESS = constructSameAddressMap('0x5e4be8Bc9637f0EAA1A755019e06A68ce081D58F')
 export const TIMELOCK_ADDRESS = constructSameAddressMap('0x1a9C8182C09F50C8318d769245beA52c32BE35BC')
@@ -13,10 +18,17 @@ export const MERKLE_DISTRIBUTOR_ADDRESS: { [chainId in ChainId]?: string } = {
 export const ARGENT_WALLET_DETECTOR_ADDRESS: { [chainId in ChainId]?: string } = {
   [ChainId.MAINNET]: '0xeca4B0bDBf7c55E9b7925919d03CbF8Dc82537E8',
 }
-export const V3_CORE_FACTORY_ADDRESSES = constructSameAddressMap(V3_FACTORY_ADDRESS)
-export const QUOTER_ADDRESSES = constructSameAddressMap('0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6')
+export const V3_CORE_FACTORY_ADDRESSES = constructSameAddressMap(V3_FACTORY_ADDRESS, {
+  [BSC_TESTNET]: '0x0aF87c3EefeecB936A0D43fC482c7c12F8faAaaf',
+})
+export const QUOTER_ADDRESSES = constructSameAddressMap('0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6', {
+  [BSC_TESTNET]: '0xB625ccD0Bd5b7DAdb7ADd4bf91B52CF3B6C5829f',
+})
 export const NONFUNGIBLE_POSITION_MANAGER_ADDRESSES = constructSameAddressMap(
-  '0xC36442b4a4522E871399CD717aBDD847Ab11FE88'
+  '0xC36442b4a4522E871399CD717aBDD847Ab11FE88',
+  {
+    [BSC_TESTNET]: '0xF9049b3F182AB28A6adfAd7C2D10cc9BEaCaB6F5',
+  }
 )
 export const ENS_REGISTRAR_ADDRESSES = {
   [ChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
@@ -27,5 +39,9 @@ export const ENS_REGISTRAR_ADDRESSES = {
 export const SOCKS_CONTROLLER_ADDRESSES = {
   [ChainId.MAINNET]: '0x65770b5283117639760beA3F867b69b3697a91dd',
 }
-export const SWAP_ROUTER_ADDRESSES = constructSameAddressMap('0xE592427A0AEce92De3Edee1F18E0157C05861564')
-export const V3_MIGRATOR_ADDRESSES = constructSameAddressMap('0xA5644E29708357803b5A882D272c41cC0dF92B34')
+export const SWAP_ROUTER_ADDRESSES = constructSameAddressMap('0xE592427A0AEce92De3Edee1F18E0157C05861564', {
+  [BSC_TESTNET]: '0xb02EB3F5Ba862dC460ebC12BDC2A6EB7a2C9eA35',
+})
+export const V3_MIGRATOR_ADDRESSES = constructSameAddressMap('0xA5644E29708357803b5A882D272c41cC0dF92B34', {
+  [BSC_TESTNET]: '0x4954D1a4F6C8cb334604D4CE32507E2E56bA8F0A',
+})

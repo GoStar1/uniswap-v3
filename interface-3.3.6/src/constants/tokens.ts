@@ -28,3 +28,26 @@ export const UNI: { [chainId in ChainId]: Token } = {
   [ChainId.GÖRLI]: new Token(ChainId.GÖRLI, UNI_ADDRESS[ChainId.GÖRLI], 18, 'UNI', 'Uniswap'),
   [ChainId.KOVAN]: new Token(ChainId.KOVAN, UNI_ADDRESS[ChainId.KOVAN], 18, 'UNI', 'Uniswap'),
 }
+
+// BSC Testnet Tokens
+export const WBNB = new Token(
+  97, // BSC Testnet chainId
+  '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
+  18,
+  'WBNB',
+  'Wrapped BNB'
+)
+export const AUDIO = new Token(
+  97, // BSC Testnet chainId
+  '0xe9402c6851719496f64F69eF8B8Cb82099d3Abca',
+  18,
+  'AUDIO',
+  'AudioCoin'
+)
+export const BREW = new Token(
+  97, // BSC Testnet chainId
+  '0x6edBb19E0e156aF6b8334bc1cD7D0eA878B8eC9A',
+  18,
+  'BREW',
+  'BrewCoin'
+)

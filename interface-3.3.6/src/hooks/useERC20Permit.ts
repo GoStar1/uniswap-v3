@@ -32,6 +32,10 @@ const PERMITTABLE_TOKENS: {
   [chainId in ChainId]: {
     [checksummedTokenAddress: string]: PermitInfo
   }
+} & {
+  [chainId: number]: {
+    [checksummedTokenAddress: string]: PermitInfo
+  }
 } = {
   [ChainId.MAINNET]: {
     [USDC.address]: { type: PermitType.AMOUNT, name: 'USD Coin', version: '2' },
@@ -52,6 +56,8 @@ const PERMITTABLE_TOKENS: {
   [ChainId.KOVAN]: {
     [UNI[ChainId.KOVAN].address]: { type: PermitType.AMOUNT, name: 'Uniswap' },
   },
+  // BSC Testnet - empty object to prevent undefined errors
+  [97]: {},
 }
 
 export enum UseERC20PermitState {
